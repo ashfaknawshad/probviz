@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
+import BinomialPanel from './features/distributions/binomial/BinomialPanel'
 import NormalPanel from './features/distributions/normal/NormalPanel'
 import PoissonPanel from './features/distributions/poisson/PoissonPanel'
 import type { DistributionDefinition, DistributionKind } from './features/distributions/types'
 
 const DISTRIBUTIONS: DistributionDefinition[] = [
   { id: 'poisson', label: 'Poisson', summary: 'Discrete events in fixed intervals' },
+  { id: 'binomial', label: 'Binomial', summary: 'Success counts across fixed independent trials' },
   { id: 'normal', label: 'Normal', summary: 'Continuous values with bell-curve model' },
 ]
 
@@ -33,7 +35,7 @@ export default function App() {
           <p className="eyebrow">Progressive Web App</p>
           <h1>ProbViz</h1>
           <p className="subhead">
-            Solve Poisson and Normal distribution probabilities in real time, with interactive visuals and full offline support.
+            Solve Poisson, Binomial and Normal distribution probabilities in real time, with interactive visuals and full offline support.
           </p>
         </div>
         <div className="compact-controls" aria-label="Display options">
@@ -78,6 +80,8 @@ export default function App() {
         <section className="card module-card">
           {selectedDistribution === 'poisson' ? (
             <PoissonPanel showSteps={showSteps} showFormula={showFormula} />
+          ) : selectedDistribution === 'binomial' ? (
+            <BinomialPanel showSteps={showSteps} showFormula={showFormula} />
           ) : (
             <NormalPanel showSteps={showSteps} showFormula={showFormula} />
           )}

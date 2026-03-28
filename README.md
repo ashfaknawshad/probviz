@@ -4,6 +4,7 @@ A modern, responsive Progressive Web App (PWA) for solving and visualizing proba
 
 Current modules:
 - Poisson Distribution
+- Binomial Distribution
 - Normal Distribution
 
 It is designed to be modular, so additional distributions can be added later (Binomial, Exponential, Uniform, etc.).
@@ -23,8 +24,15 @@ It is designed to be modular, so additional distributions can be added later (Bi
   - P(X < x)
   - P(X > x)
   - P(a <= X <= b)
+- Binomial modes:
+  - P(X = x)
+  - P(X <= x)
+  - P(X >= x)
+  - P(X < x)
+  - P(X > x)
 - Dynamic visualizations:
   - Poisson discrete bar graph
+  - Binomial discrete bar graph
   - Normal bell curve with highlighted regions
 - Step-by-step explanation toggle
 - Formula display toggle
@@ -150,8 +158,9 @@ VITE_BASE_PATH=/probviz/ npm run deploy:gh
 ## Project Structure
 
 - `src/features/distributions/poisson` - Poisson logic + UI
+- `src/features/distributions/binomial` - Binomial logic + UI
 - `src/features/distributions/normal` - Normal logic + UI
-- `src/features/charts` - Recharts visual components
+- `src/features/charts` - native SVG visual components
 - `src/features/shared` - shared formatting and validation
 - `src/pwa` - service worker registration
 - `public/sw.js` - service worker caching strategy
