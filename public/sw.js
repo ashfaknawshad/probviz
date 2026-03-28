@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'probviz-v1'
+const CACHE_VERSION = 'probviz-v2'
 const APP_SHELL_CACHE = `${CACHE_VERSION}-shell`
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`
 const BASE_PATH = new URL(self.registration.scope).pathname
@@ -66,19 +66,15 @@ self.addEventListener('fetch', (event) => {
 
   if (isExternalCacheable || isSameOriginStatic) {
     event.respondWith(
-      caches.match(request).then((cached) => {
-        const networkFetch = fetch(request)
-          .then((response) => {
-            if (response.ok) {
-              const copy = response.clone()
-              caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy))
-            }
-            return response
-          })
-          .catch(() => cached)
-
-        return cached || networkFetch
-      }),
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const copy = response.clone()
+            caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy))
+          }
+          return response
+        })
+        .catch(() => caches.match(request)),
     )
   }
 })
